@@ -1,13 +1,26 @@
 # create-vfan
 
-[![create-vfan](https://img.shields.io/npm/v/@vfanlee/create-vfan.svg)](https://www.npmjs.com/package/@vfanlee/create-vfan)
+[![create-vfan](https://img.shields.io/npm/v/create-vfan.svg)](https://www.npmjs.com/package/create-vfan)
+[![download](https://img.shields.io/npm/dm/create-vfan.svg)](https://www.npmjs.com/package/create-vfan)
 [![build status](https://github.com/VfanLee/create-vfan/actions/workflows/release.yml/badge.svg)](https://github.com/VfanLee/create-vfan/actions/workflows/release.yml)
-![download](https://img.shields.io/npm/dm/@vfanlee/create-vfan.svg)
-![license](https://img.shields.io/github/license/VfanLee/create-vfan.svg)
+[![license](https://img.shields.io/github/license/VfanLee/create-vfan.svg)](https://github.com/VfanLee/create-vfan/blob/main/LICENSE)
 
 ## 介绍
 
-将个人常用的项目模板做成脚手架，方便快速创建项目。
+个人项目脚手架，方便快速创建项目。
+
+## 快速开始
+
+```bash
+# 使用 pnpm
+pnpm create vfan
+
+# 使用 npm
+npm create vfan
+
+# 使用 yarn
+yarn create vfan
+```
 
 ## 模板总览
 
@@ -15,8 +28,7 @@
 - vue3-ts
 - react18-ts
 
-> [!TIP]
-> 不常用的模板统一放置在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/blob/main/uncommon-templates) 目录下。
+**💡 提示：** 不常用的模板统一放置在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/blob/main/uncommon-templates) 目录下。
 
 ## 贡献者
 

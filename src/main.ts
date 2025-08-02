@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const TEMPLATE_ROOT = path.resolve(__dirname, '../templates')
+const TEMPLATE_ROOT = path.resolve(__dirname, '..', 'templates')
 
 async function main() {
   const response = await prompts([
