@@ -1,3 +1,12 @@
+## [0.0.2](https://github.com/VfanLee/create-vfan/compare/v0.0.1...v0.0.2) (2025-08-02)
+
+
+### Bug Fixes
+
+* packaging error ([92f05c6](https://github.com/VfanLee/create-vfan/commit/92f05c6b413174e6fae3e2e02388334516889d22))
+
+
+
 ## 0.0.1 (2025-08-02)
 
 
