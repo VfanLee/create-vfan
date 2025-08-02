@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      fs-extra:
+        specifier: ^11.3.0
+        version: 11.3.0
+      prompts:
+        specifier: ^2.4.2
+        version: 2.4.2
     devDependencies:
       '@types/fs-extra':
         specifier: ^11.0.4
@@ -20,12 +27,6 @@ importers:
       conventional-changelog-cli:
         specifier: ^5.0.0
         version: 5.0.0(conventional-commits-filter@5.0.0)
-      fs-extra:
-        specifier: ^11.3.0
-        version: 11.3.0
-      prompts:
-        specifier: ^2.4.2
-        version: 2.4.2
       tsx:
         specifier: ^4.7.0
         version: 4.20.3
