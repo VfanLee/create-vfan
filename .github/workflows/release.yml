@@ -1,0 +1,68 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Publish to npm
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Publishing version: $VERSION"
+
+          if [[ "$VERSION" == *"-alpha"* ]]; then
+            TAG="alpha"
+            echo "Publishing as alpha tag..."
+          elif [[ "$VERSION" == *"-beta"* ]]; then
+            TAG="beta"
+            echo "Publishing as beta tag..."
+          elif [[ "$VERSION" == *"-rc"* ]]; then
+            TAG="rc"
+            echo "Publishing as release candidate tag..."
+          elif [[ "$VERSION" == *"-next"* ]]; then
+            TAG="next"
+            echo "Publishing as next tag..."
+          else
+            TAG="latest"
+            echo "Publishing as latest stable version..."
+          fi
+
+          pnpm publish --tag $TAG
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        run: |
+          pnpm run release ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

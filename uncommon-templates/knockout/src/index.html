@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <a href="https://knockoutjs.com/" target="_blank"><img src="/assets/knockoutjs.png" alt="Knockout.js" /></a>
+        <a href="https://requirejs.org/" target="_blank"><img src="/assets/requirejs.png" alt="Require.js" /></a>
+      </div>
+      <hello-world params="msg: 'Knockout.js + AMD(Require.js)'"></hello-world>
+      <p>i18n: <span data-bind="text: messageText.msg"></span></p>
+    </div>
+
+    <script data-main="init" src="vendors/require.min.js"></script>
+  </body>
+</html>
