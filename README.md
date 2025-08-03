@@ -12,14 +12,14 @@
 ## 快速开始
 
 ```bash
-# 使用 pnpm
-pnpm create vfan
+# npm
+npm create vfan@latest
 
-# 使用 npm
-npm create vfan
+# pnpm
+pnpm create vfan@latest
 
-# 使用 yarn
-yarn create vfan
+# yarn
+yarn create vfan@latest
 ```
 
 ## 模板总览
