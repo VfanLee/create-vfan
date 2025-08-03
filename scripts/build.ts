@@ -14,7 +14,7 @@ const options: BuildOptions = {
   target: 'node20',
   minify: !isWatch,
   sourcemap: isWatch,
-  external: ['fs-extra', 'commander', 'inquirer', 'chalk'],
+  external: ['fs-extra', 'commander', 'inquirer', 'chalk', 'simple-git', 'cli-progress'],
 }
 
 try {
