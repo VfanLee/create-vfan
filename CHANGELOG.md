@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/VfanLee/create-vfan/compare/v0.2.1...v0.2.2) (2025-08-03)
+
+
+### Features
+
+* add remot templates ([8ad1ea1](https://github.com/VfanLee/create-vfan/commit/8ad1ea135acf142eba6b3364d3457c2893fc13c7))
+
+
+
 ## [0.2.1](https://github.com/VfanLee/create-vfan/compare/v0.2.0...v0.2.1) (2025-08-03)
 
 * normalization
