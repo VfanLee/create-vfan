@@ -27,8 +27,14 @@ importers:
       conventional-changelog-cli:
         specifier: ^5.0.0
         version: 5.0.0(conventional-commits-filter@5.0.0)
+      esbuild:
+        specifier: ^0.25.8
+        version: 0.25.8
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       tsx:
-        specifier: ^4.7.0
+        specifier: ^4.20.3
         version: 4.20.3
       typescript:
         specifier: ^5.4.0
@@ -398,6 +404,11 @@ packages:
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
@@ -804,6 +815,8 @@ snapshots:
       type-fest: 4.41.0
 
   picocolors@1.1.1: {}
+
+  prettier@3.6.2: {}
 
   prompts@2.4.2:
     dependencies:
