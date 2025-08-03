@@ -5,11 +5,11 @@ const tags = ['alpha', 'beta', 'rc', 'next']
 
 function main() {
   if (!version) {
-    console.error('❌ Please provide a version')
+    console.error('❌ 版本号不能为空！请提供版本号作为参数。')
     process.exit(1)
   }
 
-  console.log(`Creating GitHub release for version: ${version}`)
+  console.log(`正在为版本创建 GitHub Release: ${version}`)
 
   try {
     const isPrerelease = tags.some((tag) => version.includes(`-${tag}`))
@@ -19,13 +19,13 @@ function main() {
     const command = isPrerelease ? `${baseCommand} --prerelease` : baseCommand
 
     const releaseType = isPrerelease ? 'prerelease' : 'stable'
-    console.log(`Creating ${releaseType} GitHub release...`)
+    console.log(`正在创建 ${releaseType} GitHub Release...`)
 
     execSync(command, { stdio: 'inherit' })
-    console.log(`✅ Successfully created ${releaseType} release: ${version}`)
+    console.log(`✅ 创建 GitHub ${releaseType} Release 成功: ${version}`)
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-    console.error(`❌ Error while creating GitHub release: ${errorMessage}`)
+    const errorMessage = error instanceof Error ? error.message : '未知错误'
+    console.error(`❌ 创建 GitHub Release 时出错: ${errorMessage}`)
     process.exit(1)
   }
 }

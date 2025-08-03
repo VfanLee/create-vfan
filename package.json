@@ -31,22 +31,29 @@
   "scripts": {
     "dev": "tsx scripts/build.ts --watch",
     "build": "tsx scripts/build.ts",
+    "lint": "eslint src/**/*.ts scripts/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts scripts/**/*.ts --fix",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
-    "format": "prettier --write src/**/*.{ts,js,json,md}"
+    "format": "prettier --write src/**/*.{ts,js,json,md} scripts/**/*.{ts,js}"
   },
   "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^14.0.0",
     "fs-extra": "^11.3.0",
-    "prompts": "^2.4.2"
+    "inquirer": "^12.9.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
     "@types/node": "^20.19.9",
-    "@types/prompts": "^2.4.9",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "conventional-changelog-cli": "^5.0.0",
     "esbuild": "^0.25.8",
+    "eslint": "^8.57.0",
     "prettier": "^3.6.2",
     "tsx": "^4.20.3",
-    "typescript": "^5.4.0"
+    "typescript": "^5.5.4"
   }
 }

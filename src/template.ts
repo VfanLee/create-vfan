@@ -6,10 +6,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export const TEMPLATE_CONFIG = {
   root: path.resolve(__dirname, '..', 'templates'),
   choices: [
-    { title: 'React18 + TS', value: 'react18-ts' },
-    { title: 'Next14', value: 'next14' },
-    { title: 'Vue3 + TS', value: 'vue3-ts' },
-    { title: 'Vue2 + JS', value: 'vue2-js' },
+    { title: 'React18 + TypeScript', value: 'react18-ts' },
+    { title: 'Next.js 14', value: 'next14' },
+    { title: 'Vue3 + TypeScript', value: 'vue3-ts' },
+    { title: 'Vue2 + JavaScript', value: 'vue2-js' },
   ],
 }
 

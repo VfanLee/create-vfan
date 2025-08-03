@@ -22,11 +22,12 @@ pnpm create vfan@latest
 yarn create vfan@latest
 ```
 
-## 模板总览
+## 支持的模板
 
-- vue2-js
-- vue3-ts
-- react18-ts
+- React18 + TypeScript
+- Next.js 14
+- Vue3 + TypeScript
+- Vue2 + JavaScript
 
 **💡 提示：** 不常用的模板统一放置在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/blob/main/uncommon-templates) 目录下。
 

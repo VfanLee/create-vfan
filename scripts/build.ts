@@ -14,7 +14,7 @@ const options: BuildOptions = {
   target: 'node20',
   minify: !isWatch,
   sourcemap: isWatch,
-  external: ['fs-extra', 'prompts'],
+  external: ['fs-extra', 'commander', 'inquirer', 'chalk'],
 }
 
 try {
@@ -27,7 +27,7 @@ try {
           setup(build) {
             build.onEnd((result) => {
               if (result.errors.length === 0) {
-                console.log('✅ Build completed! Watching for changes...')
+                console.log('✅ 构建完成！正在监听变化...')
               }
             })
           },
@@ -35,12 +35,12 @@ try {
       ],
     })
     await ctx.watch()
-    console.log('👀 Watching for changes... (Press Ctrl+C to stop)')
+    console.log('👀 正在监听变化...')
   } else {
     await build(options)
-    console.log('✅ Build completed successfully!')
+    console.log('✅ 构建成功！')
   }
 } catch (error) {
-  console.error('❌ Build failed:', error)
+  console.error('❌ 构建失败:', error)
   process.exit(1)
 }
