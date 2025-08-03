@@ -31,8 +31,8 @@
   "scripts": {
     "dev": "tsx scripts/build.ts --watch",
     "build": "tsx scripts/build.ts",
-    "lint": "eslint src/**/*.ts scripts/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts scripts/**/*.ts --fix",
+    "lint": "eslint src/**/*.ts scripts/**/*.{ts,js}",
+    "lint:fix": "eslint src/**/*.ts scripts/**/*.{ts,js} --fix",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
     "format": "prettier --write src/**/*.{ts,js,json,md} scripts/**/*.{ts,js}"

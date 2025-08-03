@@ -3,14 +3,14 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import { getTemplateDir, getTargetDir } from './template.js'
 
-export async function createProject(projectName: string, template: string, override: boolean = false) {
+export async function createProject(projectName: string, template: string, force: boolean = false) {
   const targetDir = getTargetDir(projectName)
   const templateDir = getTemplateDir(template)
 
   if (await fs.pathExists(targetDir)) {
-    if (!override) {
+    if (!force) {
       console.error(chalk.red(`❌ 目录 '${projectName}' 已存在！`))
-      console.error(chalk.yellow('💡 使用 --override 参数强制覆盖'))
+      console.error(chalk.yellow('💡 使用 --force 参数强制覆盖'))
       process.exit(1)
     }
 
@@ -18,8 +18,8 @@ export async function createProject(projectName: string, template: string, overr
     await fs.remove(targetDir)
   }
 
-  console.log(chalk.blue(`📁 正在创建项目: ${projectName}`))
-  console.log(chalk.gray(`📂 使用模板: ${template}`))
+  console.log(chalk.cyan(`📁 正在创建项目: ${projectName}`))
+  console.log(chalk.cyan(`📂 使用模板: ${template}`))
 
   await fs.copy(templateDir, targetDir, {
     filter: (src) => {
@@ -30,7 +30,7 @@ export async function createProject(projectName: string, template: string, overr
 
   await updatePackageJson(targetDir, projectName)
 
-  console.log(chalk.green(`📦 项目文件已复制完成`))
+  console.log(chalk.cyan(`📦 项目文件已复制完成`))
 }
 
 async function updatePackageJson(targetDir: string, projectName: string) {
@@ -44,7 +44,7 @@ async function updatePackageJson(targetDir: string, projectName: string) {
     const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
     pkg.name = projectName
     await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2))
-    console.log(chalk.green(`✏️  已更新 package.json`))
+    console.log(chalk.cyan(`✏️  已更新 package.json`))
   } catch (error) {
     console.warn(chalk.yellow('⚠️ 更新 package.json 失败:'), error)
   }

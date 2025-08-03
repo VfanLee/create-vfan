@@ -2,10 +2,9 @@ import inquirer from 'inquirer'
 import chalk from 'chalk'
 import { TEMPLATE_CONFIG } from './template.js'
 
-export async function promptProjectInfo(projectName?: string) {
+export async function promptProjectInfo(projectName?: string, template?: string) {
   const questions = []
 
-  // 如果没有提供项目名称，则询问
   if (!projectName) {
     questions.push({
       type: 'input',
@@ -24,28 +23,36 @@ export async function promptProjectInfo(projectName?: string) {
     })
   }
 
-  // 模板选择
-  questions.push({
-    type: 'list',
-    name: 'template',
-    message: '选择模板:',
-    choices: TEMPLATE_CONFIG.choices.map((choice) => ({
-      name: chalk.cyan(choice.title),
-      value: choice.value,
-      short: choice.title,
-    })),
-    theme: {
-      style: {
-        highlight: chalk.magenta, // 自定义高亮颜色为紫色
-        answer: chalk.blue, // 自定义答案颜色为蓝色
+  if (!template) {
+    questions.push({
+      type: 'list',
+      name: 'template',
+      message: '选择模板:',
+      choices: TEMPLATE_CONFIG.choices.map((choice) => ({
+        name: chalk.cyan(choice.title),
+        value: choice.value,
+        short: choice.title,
+      })),
+      theme: {
+        style: {
+          highlight: chalk.cyan,
+          answer: chalk.cyan,
+        },
       },
-    },
-  })
+    })
+  } else {
+    const validTemplates = TEMPLATE_CONFIG.choices.map((choice) => choice.value)
+    if (!validTemplates.includes(template)) {
+      console.error(chalk.red(`❌ 无效的模板: ${template}`))
+      console.error(chalk.yellow(`💡 可用模板: ${validTemplates.join(', ')}`))
+      process.exit(1)
+    }
+  }
 
   const answers = await inquirer.prompt(questions)
 
   return {
     projectName: projectName || answers.projectName,
-    template: answers.template,
+    template: template || answers.template,
   }
 }

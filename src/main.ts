@@ -7,6 +7,7 @@ import fs from 'fs-extra'
 import { fileURLToPath } from 'url'
 import { promptProjectInfo } from './prompts.js'
 import { createProject } from './creator.js'
+import { TEMPLATE_CONFIG } from './template.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -16,7 +17,7 @@ function getVersion() {
     const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'))
     return pkg.version
   } catch (error) {
-    return '0.1.0'
+    return '0.0.0'
   }
 }
 
@@ -24,38 +25,49 @@ const program = new Command()
 
 program
   .name('create-vfan')
-  .description("Vfan Lee's Projects CLI - 快速创建项目模板")
+  .description('Vfan Lee 的项目脚手架')
+  .usage('[项目名称] [选项]')
   .version(getVersion(), '-v, --version', '显示版本信息')
   .argument('[project-name]', '项目名称')
-  .option('--override', '强制覆盖已存在的目录')
+  .option('-f, --force', '强制覆盖已存在的目录')
+  .option('-t, --template <template>', '指定模板')
+  .configureOutput({
+    writeOut: (str) => {
+      const chineseStr = str
+        .replace(/Usage:/g, '用法:')
+        .replace(/Arguments:/g, '参数:')
+        .replace(/Options:/g, '选项:')
+        .replace(/display help for command/g, '显示帮助信息')
+      process.stdout.write(chineseStr)
+    },
+    writeErr: (str) => process.stderr.write(str),
+  })
   .addHelpText(
     'after',
     `
-${chalk.cyan('示例:')}
-  ${chalk.dim('$')} create-vfan                ${chalk.gray('交互式创建项目')}
-  ${chalk.dim('$')} create-vfan my-app         ${chalk.gray('直接指定项目名称创建')}
-  ${chalk.dim('$')} create-vfan my-app --override  ${chalk.gray('强制覆盖已存在的目录')}
+示例:
+  ${chalk.dim('$')} create-vfan
+  ${chalk.dim('$')} create-vfan my-app
+  ${chalk.dim('$')} create-vfan my-app --template react18-ts
+  ${chalk.dim('$')} create-vfan my-app -t next14 --force
 
-${chalk.cyan('支持的模板:')}
-  ${chalk.green('•')} React18 + TypeScript
-  ${chalk.green('•')} Next.js 14
-  ${chalk.green('•')} Vue3 + TypeScript
-  ${chalk.green('•')} Vue2 + JavaScript
+支持的模板:
+${TEMPLATE_CONFIG.choices.map((choice) => `  ${chalk.cyan('•')} ${choice.title}`).join('\n')}
 `,
   )
   .action(async (projectName, options) => {
-    console.log(chalk.bold(chalk.green('create-vfan')) + ' 🚀\n')
+    console.log(chalk.bold(chalk.cyan('create-vfan')) + ' 🚀\n')
 
     try {
-      const { projectName: finalProjectName, template } = await promptProjectInfo(projectName)
-      await createProject(finalProjectName, template, options.override)
+      const { projectName: finalProjectName, template } = await promptProjectInfo(projectName, options.template)
+      console.log()
+      await createProject(finalProjectName, template, options.force)
 
-      console.log(chalk.green(`\n✨ ${finalProjectName} 创建完成！`))
+      console.log(chalk.cyan(`\n✨ ${finalProjectName} 创建完成！`))
     } catch (error) {
       console.error(chalk.red('\n❌ 创建项目失败: ') + error)
       process.exit(1)
     }
   })
 
-// 解析命令行参数
 program.parse()

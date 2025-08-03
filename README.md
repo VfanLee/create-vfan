@@ -7,7 +7,7 @@
 
 ## 介绍
 
-个人项目脚手架，方便快速创建项目。
+Vfan Lee 的项目脚手架，快速创建项目模板。
 
 ## 快速开始
 
@@ -22,15 +22,36 @@ pnpm create vfan@latest
 yarn create vfan@latest
 ```
 
+## 使用方式
+
+```
+Usage: create-vfan [project-name] [options]
+
+Arguments:
+  project-name               项目名称
+
+Options:
+  -v, --version              显示版本信息
+  -f, --force                强制覆盖已存在的目录
+  -t, --template <template>  指定模板
+  -h, --help                 显示帮助信息
+```
+
 ## 支持的模板
 
-- React18 + TypeScript
-- Next.js 14
-- Vue3 + TypeScript
-- Vue2 + JavaScript
+| 模板         | 描述                 |
+| ------------ | -------------------- |
+| `react18-ts` | React18 + TypeScript |
+| `next14`     | Next.js 14           |
+| `vue3-ts`    | Vue3 + TypeScript    |
+| `vue2-js`    | Vue2 + JavaScript    |
 
-**💡 提示：** 不常用的模板统一放置在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/blob/main/uncommon-templates) 目录下。
+**💡 提示：** 更多模板可在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/tree/main/uncommon-templates) 目录下找到。
 
 ## 贡献者
 
 [![contributors](https://contrib.rocks/image?repo=VfanLee/create-vfan)](https://github.com/VfanLee/create-vfan/graphs/contributors)
+
+## 许可证
+
+[MIT](./LICENSE)

@@ -31,6 +31,24 @@ module.exports = {
         'no-var': 'error',
         'eqeqeq': ['error', 'always']
       }
+    },
+    {
+      files: ['scripts/**/*.js'],
+      parserOptions: {
+        ecmaVersion: 2023,
+        sourceType: 'module'
+      },
+      extends: ['eslint:recommended'],
+      rules: {
+        // Node.js 相关
+        'no-console': 'off',
+        'no-process-exit': 'off',
+        
+        // 代码风格
+        'prefer-const': 'error',
+        'no-var': 'error',
+        'eqeqeq': ['error', 'always']
+      }
     }
   ],
   ignorePatterns: [
