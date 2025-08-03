@@ -1,3 +1,7 @@
+## [0.2.1](https://github.com/VfanLee/create-vfan/compare/v0.2.0...v0.2.1) (2025-08-03)
+
+* normalization
+
 # [0.2.0](https://github.com/VfanLee/create-vfan/compare/v0.1.2...v0.2.0) (2025-08-03)
 
 
