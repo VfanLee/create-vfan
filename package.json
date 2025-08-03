@@ -6,11 +6,23 @@
     "vfanlee",
     "create-vfan"
   ],
+  "license": "MIT",
+  "author": {
+    "name": "Vfan Lee",
+    "url": "https://github.com/VfanLee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VfanLee/create-vfan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VfanLee/create-vfan/issues"
+  },
+  "homepage": "https://github.com/VfanLee/create-vfan#readme",
   "type": "module",
   "bin": {
     "create-vfan": "bin/index.js"
   },
-  "license": "MIT",
   "files": [
     "bin",
     "dist",
