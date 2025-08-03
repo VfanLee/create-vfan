@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/VfanLee/create-vfan/compare/v0.1.2...v0.2.0) (2025-08-03)
+
+
+### Features
+
+* feature enhancement ([b0a77db](https://github.com/VfanLee/create-vfan/commit/b0a77db777d3bbea5d9376c7d6f949fe9e187466))
+
+
+
 ## [0.1.2](https://github.com/VfanLee/create-vfan/compare/v0.1.1...v0.1.2) (2025-08-03)
 
 
