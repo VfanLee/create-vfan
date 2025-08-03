@@ -25,12 +25,14 @@ yarn create vfan@latest
 ## 使用方式
 
 ```
-Usage: create-vfan [project-name] [options]
+用法: create-vfan [项目名称] [选项]
 
-Arguments:
+Vfan Lee 的项目脚手架
+
+参数:
   project-name               项目名称
 
-Options:
+选项:
   -v, --version              显示版本信息
   -f, --force                强制覆盖已存在的目录
   -t, --template <template>  指定模板
@@ -46,7 +48,7 @@ Options:
 | `vue3-ts`    | Vue3 + TypeScript    |
 | `vue2-js`    | Vue2 + JavaScript    |
 
-**💡 提示：** 更多模板可在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/tree/main/uncommon-templates) 目录下找到。
+**💡 提示：** 不常用的项目模板统一在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/tree/main/uncommon-templates) 中进行管理。
 
 ## 贡献者
 
