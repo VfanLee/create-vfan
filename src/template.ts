@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// 模板配置：包含本地模板目录和可选模板列表
 export const TEMPLATE_CONFIG = {
   root: path.resolve(__dirname, '..', 'templates'),
   choices: [
@@ -15,6 +16,7 @@ export const TEMPLATE_CONFIG = {
   ],
 }
 
+// 远程模板配置：通过 Git 仓库获取的模板
 export const REMOTE_TEMPLATES = {
   'vue-admin-remote': {
     repo: 'https://github.com/VfanLee/vue-admin-template.git',
@@ -26,10 +28,12 @@ export const REMOTE_TEMPLATES = {
   },
 }
 
+// 获取本地模板目录路径
 export function getTemplateDir(template: string): string {
   return path.join(TEMPLATE_CONFIG.root, template)
 }
 
+// 获取目标项目目录路径
 export function getTargetDir(projectName: string): string {
   return path.resolve(process.cwd(), projectName)
 }

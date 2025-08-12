@@ -11,6 +11,7 @@ import { TEMPLATE_CONFIG } from './template.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// 获取 package.json 中的版本号
 function getVersion() {
   const packagePath = path.resolve(__dirname, '..', 'package.json')
   try {
@@ -23,6 +24,7 @@ function getVersion() {
 
 const program = new Command()
 
+// 配置 CLI 命令行接口
 program
   .name('create-vfan')
   .description('Vfan Lee 的项目脚手架')
@@ -32,6 +34,7 @@ program
   .option('-f, --force', '强制覆盖已存在的目录')
   .option('-t, --template <template>', '指定模板')
   .configureOutput({
+    // 自定义输出内容的中文化
     writeOut: (str) => {
       const chineseStr = str
         .replace(/Usage:/g, '用法:')
@@ -59,8 +62,11 @@ ${TEMPLATE_CONFIG.choices.map((choice) => `  ${chalk.cyan('•')} ${choice.title
     console.log(chalk.bold(chalk.cyan('create-vfan')) + ' 🚀\n')
 
     try {
+      // 通过交互式提示获取项目信息
       const { projectName: finalProjectName, template } = await promptProjectInfo(projectName, options.template)
       console.log()
+      
+      // 执行项目创建流程
       await createProject(finalProjectName, template, options.force)
 
       console.log(chalk.cyan(`\n✨ ${finalProjectName} 创建完成！`))
