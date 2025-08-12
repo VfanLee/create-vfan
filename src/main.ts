@@ -65,7 +65,7 @@ ${TEMPLATE_CONFIG.choices.map((choice) => `  ${chalk.cyan('•')} ${choice.title
       // 通过交互式提示获取项目信息
       const { projectName: finalProjectName, template } = await promptProjectInfo(projectName, options.template)
       console.log()
-      
+
       // 执行项目创建流程
       await createProject(finalProjectName, template, options.force)
 

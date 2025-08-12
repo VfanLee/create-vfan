@@ -1,11 +1,11 @@
-import { build, context, type BuildOptions } from 'esbuild'
+import { build, context } from 'esbuild'
 import fs from 'fs-extra'
 
 const isWatch = process.argv.includes('--watch')
 
 await fs.emptyDir('dist')
 
-const options: BuildOptions = {
+const options = {
   entryPoints: ['src/main.ts'],
   bundle: true,
   outfile: 'dist/index.js',

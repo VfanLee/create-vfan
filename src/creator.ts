@@ -11,7 +11,7 @@ async function copyTemplateWithProgress(templateDir: string, targetDir: string) 
   console.log()
 
   const files: string[] = []
-  
+
   // 递归收集所有文件路径（排除 node_modules）
   const collectFiles = async (dir: string) => {
     const items = await fs.readdir(dir)
@@ -130,7 +130,7 @@ export async function createProject(projectName: string, template: string, force
       process.exit(1)
     }
 
-    console.log(chalk.yellow(`⚠️  正在覆盖已存在的目录: ${projectName}`))
+    console.log(chalk.yellow(`⚠️ 正在覆盖已存在的目录: ${projectName}`))
     await fs.remove(targetDir)
   }
 
