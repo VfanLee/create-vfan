@@ -1,3 +1,17 @@
+## [0.2.3](https://github.com/VfanLee/create-vfan/compare/v0.2.2...v0.2.3) (2025-08-12)
+
+
+### Bug Fixes
+
+* package ignore files ([10254f0](https://github.com/VfanLee/create-vfan/commit/10254f0a371d430b6222094659d4fa347e39ebf4))
+
+
+### Features
+
+* add vue-no-build-template ([04309dc](https://github.com/VfanLee/create-vfan/commit/04309dc01e4f9b69f78b6a2cb519022d655952a0))
+
+
+
 ## [0.2.2](https://github.com/VfanLee/create-vfan/compare/v0.2.1...v0.2.2) (2025-08-03)
 
 
