@@ -3,77 +3,9 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import { simpleGit } from 'simple-git'
 import cliProgress from 'cli-progress'
-import { getTemplateDir, getTargetDir, REMOTE_TEMPLATES } from './template.js'
+import { getTargetDir, REMOTE_TEMPLATES } from './template.js'
 
-// 带进度条的本地模板复制
-async function copyTemplateWithProgress(templateDir: string, targetDir: string) {
-  console.log(chalk.cyan('📦 正在创建项目...'))
-  console.log()
-
-  const files: string[] = []
-
-  // 递归收集所有文件路径（排除 node_modules）
-  const collectFiles = async (dir: string) => {
-    const items = await fs.readdir(dir)
-    for (const item of items) {
-      const itemPath = path.join(dir, item)
-      const stat = await fs.stat(itemPath)
-      if (stat.isDirectory()) {
-        if (!item.includes('node_modules')) {
-          await collectFiles(itemPath)
-        }
-      } else {
-        const relativePath = path.relative(templateDir, itemPath)
-        if (!relativePath.includes('node_modules')) {
-          files.push(itemPath)
-        }
-      }
-    }
-  }
-
-  await collectFiles(templateDir)
-
-  // 初始化进度条
-  const progressBar = new cliProgress.SingleBar({
-    format: chalk.cyan('{bar}') + ' {percentage}% | {value}/{total} | ' + chalk.gray('{filename}'),
-    barCompleteChar: '█',
-    barIncompleteChar: '░',
-    hideCursor: true,
-    barsize: 30,
-  })
-
-  progressBar.start(files.length, 0, { filename: '准备中...' })
-
-  try {
-    for (let i = 0; i < files.length; i++) {
-      const filePath = files[i]
-      const relativePath = path.relative(templateDir, filePath)
-      let targetFilePath = path.join(targetDir, relativePath)
-
-      // 关键：将 _gitignore 重命名为 .gitignore（解决 npm 发布时忽略 .gitignore 的问题）
-      if (path.basename(targetFilePath) === '_gitignore') {
-        targetFilePath = path.join(path.dirname(targetFilePath), '.gitignore')
-      }
-
-      await fs.ensureDir(path.dirname(targetFilePath))
-      await fs.copy(filePath, targetFilePath)
-
-      progressBar.update(i + 1, { filename: relativePath })
-
-      // 文件较少时添加延迟，提升用户体验
-      if (files.length < 50) {
-        await new Promise((resolve) => setTimeout(resolve, 20))
-      }
-    }
-
-    progressBar.stop()
-  } catch (error) {
-    progressBar.stop()
-    throw error
-  }
-}
-
-// 从远程 Git 仓库下载模板
+// 从远程 Git 仓库下载模板（支持子目录）
 async function downloadRemoteTemplate(template: string, targetDir: string) {
   const remoteConfig = REMOTE_TEMPLATES[template]
   if (!remoteConfig) {
@@ -84,37 +16,97 @@ async function downloadRemoteTemplate(template: string, targetDir: string) {
   console.log()
 
   const progressBar = new cliProgress.SingleBar({
-    format: chalk.cyan('{bar}') + ' {percentage}% | {value}/{total} | ' + chalk.gray('{stage}'),
+    format: chalk.cyan('{bar}') + ' {percentage}% | ' + chalk.gray('{stage}'),
     barCompleteChar: '█',
     barIncompleteChar: '░',
     hideCursor: true,
-    barsize: 30,
+    barsize: 40,
+    stopOnComplete: true,
   })
 
-  const git = simpleGit()
+  const git = simpleGit({
+    progress: (progress) => {
+      // Git 进度回调，显示真实的下载进度
+      const { method, stage, progress: percent } = progress
+
+      if (method === 'clone' || method === 'checkout') {
+        const percentage = Math.round(percent)
+        let stageText = '下载中...'
+
+        if (stage.includes('Counting objects')) {
+          stageText = '正在计算对象...'
+        } else if (stage.includes('Compressing objects')) {
+          stageText = '正在压缩对象...'
+        } else if (stage.includes('Receiving objects')) {
+          stageText = '正在接收对象...'
+        } else if (stage.includes('Resolving deltas')) {
+          stageText = '正在解析增量...'
+        }
+
+        progressBar.update(percentage, { stage: stageText })
+      }
+    },
+  })
+
+  const tempDir = path.join(process.cwd(), `temp-${Date.now()}`)
+
   try {
     progressBar.start(100, 0, { stage: '初始化...' })
 
-    progressBar.update(10, { stage: '连接到远程仓库...' })
+    // 使用浅克隆(--depth=1)只下载最新代码，忽略Git历史以加速下载
+    await git.clone(remoteConfig.repo, tempDir, ['--depth', '1', '--progress'])
 
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    progressBar.update(30, { stage: '开始下载...' })
+    progressBar.update(90, { stage: '下载完成，正在处理...' })
 
-    // 浅克隆以提升下载速度
-    await git.clone(remoteConfig.repo, targetDir, ['--depth', '1'])
-    progressBar.update(80, { stage: '下载完成，正在处理...' })
+    // 确定源目录路径
+    const sourceDir = remoteConfig.subDir ? path.join(tempDir, remoteConfig.subDir) : tempDir
 
-    // 删除 .git 目录，避免与用户项目的 git 冲突
-    const gitDir = path.join(targetDir, '.git')
-    if (await fs.pathExists(gitDir)) {
-      await fs.remove(gitDir)
+    // 检查源目录是否存在
+    if (!(await fs.pathExists(sourceDir))) {
+      throw new Error(`模板目录不存在: ${remoteConfig.subDir || '根目录'}`)
     }
 
+    progressBar.update(95, { stage: '复制模板文件...' })
+
+    // 复制模板文件到目标目录
+    await fs.ensureDir(targetDir)
+    await copyTemplateFiles(sourceDir, targetDir)
+
     progressBar.update(100, { stage: '完成!' })
-    progressBar.stop()
   } catch (error) {
     progressBar.stop()
     throw new Error(`创建项目失败: ${error instanceof Error ? error.message : String(error)}`)
+  } finally {
+    // 清理临时目录
+    if (await fs.pathExists(tempDir)) {
+      await fs.remove(tempDir)
+    }
+  }
+}
+
+// 复制模板文件
+async function copyTemplateFiles(sourceDir: string, targetDir: string) {
+  const items = await fs.readdir(sourceDir)
+
+  for (const item of items) {
+    // 跳过 .git 目录
+    if (item === '.git') continue
+
+    const sourcePath = path.join(sourceDir, item)
+    const targetPath = path.join(targetDir, item)
+
+    const stat = await fs.stat(sourcePath)
+
+    if (stat.isDirectory()) {
+      // 递归复制目录（跳过 node_modules）
+      if (!item.includes('node_modules')) {
+        await fs.ensureDir(targetPath)
+        await copyTemplateFiles(sourcePath, targetPath)
+      }
+    } else {
+      // 复制文件
+      await fs.copy(sourcePath, targetPath)
+    }
   }
 }
 
@@ -137,20 +129,13 @@ export async function createProject(projectName: string, template: string, force
   console.log(chalk.cyan(`📋 使用模板: ${template}`))
 
   try {
-    // 根据模板类型选择不同的创建方式
-    if (REMOTE_TEMPLATES[template]) {
-      // 远程模板：通过 Git 克隆
-      await downloadRemoteTemplate(template, targetDir)
-    } else {
-      // 本地模板：直接复制文件
-      const templateDir = getTemplateDir(template)
-
-      if (!(await fs.pathExists(templateDir))) {
-        throw new Error(`模板 '${template}' 不存在`)
-      }
-
-      await copyTemplateWithProgress(templateDir, targetDir)
+    // 检查模板是否存在
+    if (!REMOTE_TEMPLATES[template]) {
+      throw new Error(`模板 '${template}' 不存在`)
     }
+
+    // 从远程下载模板
+    await downloadRemoteTemplate(template, targetDir)
 
     // 更新 package.json 中的项目名称
     await updatePackageJson(targetDir, projectName)

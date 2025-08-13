@@ -25,11 +25,9 @@
   },
   "files": [
     "bin",
-    "dist",
-    "templates"
+    "dist"
   ],
   "scripts": {
-    "dev": "node scripts/build.js --watch",
     "build": "node scripts/build.js",
     "format": "prettier --write src/**/*.{ts,js,json,md} scripts/**/*.{ts,js}",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",

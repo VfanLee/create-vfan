@@ -1,11 +1,42 @@
 import path from 'path'
-import { fileURLToPath } from 'url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// 远程模板配置：所有模板都从 GitHub 仓库获取
+export const REMOTE_TEMPLATES = {
+  // React 模板
+  'react18-ts': {
+    repo: 'https://github.com/VfanLee/create-vfan.git',
+    subDir: 'templates/react18-ts',
+    name: 'react18-ts',
+  },
+  'next14': {
+    repo: 'https://github.com/VfanLee/create-vfan.git',
+    subDir: 'templates/next14',
+    name: 'next14',
+  },
+  'react-admin-remote': {
+    repo: 'https://github.com/VfanLee/react-admin-template.git',
+    name: 'react-admin-template',
+  },
 
-// 模板配置：包含本地模板目录和按框架分类的模板列表
+  // Vue 模板
+  'vue2-js': {
+    repo: 'https://github.com/VfanLee/create-vfan.git',
+    subDir: 'templates/vue2-js',
+    name: 'vue2-js',
+  },
+  'vue3-ts': {
+    repo: 'https://github.com/VfanLee/create-vfan.git',
+    subDir: 'templates/vue3-ts',
+    name: 'vue3-ts',
+  },
+  'vue-admin-remote': {
+    repo: 'https://github.com/VfanLee/vue-admin-template.git',
+    name: 'vue-admin-template',
+  },
+}
+
+// 模板配置：按框架分类的模板列表
 export const TEMPLATE_CONFIG = {
-  root: path.resolve(__dirname, '..', 'templates'),
   frameworks: [
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
@@ -26,23 +57,6 @@ export const TEMPLATE_CONFIG = {
       { title: 'Vue Admin Template(alpha)', value: 'vue-admin-remote' },
     ],
   },
-}
-
-// 远程模板配置：通过 Git 仓库获取的模板
-export const REMOTE_TEMPLATES = {
-  'vue-admin-remote': {
-    repo: 'https://github.com/VfanLee/vue-admin-template.git',
-    name: 'vue-admin-template',
-  },
-  'react-admin-remote': {
-    repo: 'https://github.com/VfanLee/react-admin-template.git',
-    name: 'react-admin-template',
-  },
-}
-
-// 获取本地模板目录路径
-export function getTemplateDir(template: string): string {
-  return path.join(TEMPLATE_CONFIG.root, template)
 }
 
 // 获取目标项目目录路径

@@ -25,7 +25,7 @@ yarn create vfan@latest
 ## 使用方式
 
 ```
-用法: create-vfan [项目名称] [选项]
+用法: create-vfan [参数] [选项]
 
 Vfan Lee 的项目脚手架
 
@@ -38,15 +38,6 @@ Vfan Lee 的项目脚手架
   -t, --template <template>  指定模板
   -h, --help                 显示帮助信息
 ```
-
-## 支持的模板
-
-| 模板         | 描述                 |
-| ------------ | -------------------- |
-| `react18-ts` | React18 + TypeScript |
-| `next14`     | Next.js 14           |
-| `vue3-ts`    | Vue3 + TypeScript    |
-| `vue2-js`    | Vue2 + JavaScript    |
 
 **💡 提示：** 不常用的项目模板统一在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/tree/main/uncommon-templates) 中进行管理。
 

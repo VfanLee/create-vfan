@@ -53,12 +53,6 @@ program
   ${chalk.dim('$')} create-vfan my-app
   ${chalk.dim('$')} create-vfan my-app --template react18-ts
   ${chalk.dim('$')} create-vfan my-app -t next14 --force
-
-支持的模板:
-React:
-${TEMPLATE_CONFIG.react.map((choice) => `  ${chalk.cyan('•')} ${choice.title}`).join('\n')}
-Vue:
-${[...TEMPLATE_CONFIG.vue.vue2, ...TEMPLATE_CONFIG.vue.vue3].map((choice) => `  ${chalk.cyan('•')} ${choice.title}`).join('\n')}
 `,
   )
   .action(async (projectName, options) => {
