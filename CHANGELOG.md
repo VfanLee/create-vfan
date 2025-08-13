@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/VfanLee/create-vfan/compare/v0.2.3...v0.3.0) (2025-08-13)
+
+
+### Performance Improvements
+
+* enhance interactive experience ([fec486d](https://github.com/VfanLee/create-vfan/commit/fec486de011b7be2ea0ca97ea1f38d5da8bc911b))
+
+
+
 ## [0.2.3](https://github.com/VfanLee/create-vfan/compare/v0.2.2...v0.2.3) (2025-08-12)
 
 
