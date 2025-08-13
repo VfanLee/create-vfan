@@ -26,16 +26,17 @@ export async function promptProjectInfo(projectName?: string, template?: string)
     })
   }
 
-  // 如果没有提供模板，让用户选择
+  // 如果没有提供模板，让用户选择框架和模板
   if (!template) {
+    // 先选择框架
     questions.push({
       type: 'list',
-      name: 'template',
-      message: '选择模板:',
-      choices: TEMPLATE_CONFIG.choices.map((choice) => ({
-        name: chalk.cyan(choice.title),
-        value: choice.value,
-        short: choice.title,
+      name: 'framework',
+      message: '选择框架:',
+      choices: TEMPLATE_CONFIG.frameworks.map((framework) => ({
+        name: chalk.cyan(framework.title),
+        value: framework.value,
+        short: framework.title,
       })),
       theme: {
         style: {
@@ -46,7 +47,11 @@ export async function promptProjectInfo(projectName?: string, template?: string)
     })
   } else {
     // 验证提供的模板是否有效
-    const validTemplates = TEMPLATE_CONFIG.choices.map((choice) => choice.value)
+    const validTemplates = [
+      ...TEMPLATE_CONFIG.react.map((choice) => choice.value),
+      ...TEMPLATE_CONFIG.vue.vue2.map((choice) => choice.value),
+      ...TEMPLATE_CONFIG.vue.vue3.map((choice) => choice.value),
+    ]
     if (!validTemplates.includes(template)) {
       console.error(chalk.red(`❌ 无效的模板: ${template}`))
       console.error(chalk.yellow(`💡 可用模板: ${validTemplates.join(', ')}`))
@@ -56,8 +61,79 @@ export async function promptProjectInfo(projectName?: string, template?: string)
 
   const answers = await inquirer.prompt(questions)
 
+  let selectedTemplate = template
+
+  // 如果用户选择了框架，需要进一步选择模板
+  if (!template && answers.framework) {
+    if (answers.framework === 'react') {
+      // React 框架直接选择模板
+      const reactTemplateAnswer = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'template',
+          message: '选择 React 模板:',
+          choices: TEMPLATE_CONFIG.react.map((choice) => ({
+            name: chalk.cyan(choice.title),
+            value: choice.value,
+            short: choice.title,
+          })),
+          theme: {
+            style: {
+              highlight: chalk.cyan,
+              answer: chalk.cyan,
+            },
+          },
+        },
+      ])
+      selectedTemplate = reactTemplateAnswer.template
+    } else if (answers.framework === 'vue') {
+      // Vue 框架先选择版本
+      const vueVersionAnswer = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'vueVersion',
+          message: '选择 Vue 版本:',
+          choices: TEMPLATE_CONFIG.vue.versions.map((version) => ({
+            name: chalk.cyan(version.title),
+            value: version.value,
+            short: version.title,
+          })),
+          theme: {
+            style: {
+              highlight: chalk.cyan,
+              answer: chalk.cyan,
+            },
+          },
+        },
+      ])
+
+      // 根据 Vue 版本选择模板
+      const vueTemplates = vueVersionAnswer.vueVersion === 'vue2' ? TEMPLATE_CONFIG.vue.vue2 : TEMPLATE_CONFIG.vue.vue3
+
+      const vueTemplateAnswer = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'template',
+          message: `选择 ${vueVersionAnswer.vueVersion === 'vue2' ? 'Vue2' : 'Vue3'} 模板:`,
+          choices: vueTemplates.map((choice) => ({
+            name: chalk.cyan(choice.title),
+            value: choice.value,
+            short: choice.title,
+          })),
+          theme: {
+            style: {
+              highlight: chalk.cyan,
+              answer: chalk.cyan,
+            },
+          },
+        },
+      ])
+      selectedTemplate = vueTemplateAnswer.template
+    }
+  }
+
   return {
     projectName: projectName || answers.projectName,
-    template: template || answers.template,
+    template: selectedTemplate,
   }
 }

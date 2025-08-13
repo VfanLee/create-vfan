@@ -55,7 +55,10 @@ program
   ${chalk.dim('$')} create-vfan my-app -t next14 --force
 
 支持的模板:
-${TEMPLATE_CONFIG.choices.map((choice) => `  ${chalk.cyan('•')} ${choice.title}`).join('\n')}
+React:
+${TEMPLATE_CONFIG.react.map((choice) => `  ${chalk.cyan('•')} ${choice.title}`).join('\n')}
+Vue:
+${[...TEMPLATE_CONFIG.vue.vue2, ...TEMPLATE_CONFIG.vue.vue3].map((choice) => `  ${chalk.cyan('•')} ${choice.title}`).join('\n')}
 `,
   )
   .action(async (projectName, options) => {

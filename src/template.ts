@@ -3,17 +3,29 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// 模板配置：包含本地模板目录和可选模板列表
+// 模板配置：包含本地模板目录和按框架分类的模板列表
 export const TEMPLATE_CONFIG = {
   root: path.resolve(__dirname, '..', 'templates'),
-  choices: [
-    { title: 'React18 + TypeScript', value: 'react18-ts' },
-    { title: 'React Admin Template - alpha', value: 'react-admin-remote' },
-    { title: 'Next.js 14', value: 'next14' },
-    { title: 'Vue3 + TypeScript', value: 'vue3-ts' },
-    { title: 'Vue2 + JavaScript', value: 'vue2-js' },
-    { title: 'Vue Admin Template - alpha', value: 'vue-admin-remote' },
+  frameworks: [
+    { title: 'React', value: 'react' },
+    { title: 'Vue', value: 'vue' },
   ],
+  react: [
+    { title: 'React18 + TypeScript', value: 'react18-ts' },
+    { title: 'React Admin Template(alpha)', value: 'react-admin-remote' },
+    { title: 'Next.js 14', value: 'next14' },
+  ],
+  vue: {
+    versions: [
+      { title: 'Vue2', value: 'vue2' },
+      { title: 'Vue3', value: 'vue3' },
+    ],
+    vue2: [{ title: 'Vue2 + JavaScript', value: 'vue2-js' }],
+    vue3: [
+      { title: 'Vue3 + TypeScript', value: 'vue3-ts' },
+      { title: 'Vue Admin Template(alpha)', value: 'vue-admin-remote' },
+    ],
+  },
 }
 
 // 远程模板配置：通过 Git 仓库获取的模板
