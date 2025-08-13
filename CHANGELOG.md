@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/VfanLee/create-vfan/compare/v0.3.0...v0.3.1) (2025-08-13)
+
+
+### Features
+
+* remote download templates ([0ac6cd1](https://github.com/VfanLee/create-vfan/commit/0ac6cd1d2dd5a53b72fd6a53409b9986031eb602))
+
+
+
 # [0.3.0](https://github.com/VfanLee/create-vfan/compare/v0.2.3...v0.3.0) (2025-08-13)
 
 
