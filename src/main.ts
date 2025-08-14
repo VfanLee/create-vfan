@@ -7,7 +7,6 @@ import fs from 'fs-extra'
 import { fileURLToPath } from 'url'
 import { promptProjectInfo } from './prompts.js'
 import { createProject } from './creator.js'
-import { TEMPLATE_CONFIG } from './template.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 

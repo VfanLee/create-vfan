@@ -28,7 +28,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "node scripts/build.js",
+    "start": "node scripts/build.js && node dist/index.js",
     "format": "prettier --write src/**/*.{ts,js,json,md} scripts/**/*.{ts,js}",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
