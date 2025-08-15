@@ -26,19 +26,18 @@ const program = new Command()
 // 配置 CLI 命令行接口
 program
   .name('create-vfan')
-  .description('Vfan Lee 的项目脚手架')
+  .description('Vfan Lee 的项目脚手架，用于快速创建项目。')
   .usage('[项目名称] [选项]')
   .version(getVersion(), '-v, --version', '显示版本信息')
   .argument('[project-name]', '项目名称')
   .option('-f, --force', '强制覆盖已存在的目录')
   .option('-t, --template <template>', '指定模板')
   .configureOutput({
-    // 自定义输出内容的中文化
     writeOut: (str) => {
       const chineseStr = str
-        .replace(/Usage:/g, '用法:')
-        .replace(/Arguments:/g, '参数:')
-        .replace(/Options:/g, '选项:')
+        .replace(/Usage:/g, '用法（Usage）:')
+        .replace(/Arguments:/g, '参数（Arguments）:')
+        .replace(/Options:/g, '选项（Options）:')
         .replace(/display help for command/g, '显示帮助信息')
       process.stdout.write(chineseStr)
     },
@@ -47,7 +46,7 @@ program
   .addHelpText(
     'after',
     `
-示例:
+示例（Examples）:
   ${chalk.dim('$')} create-vfan
   ${chalk.dim('$')} create-vfan my-app
   ${chalk.dim('$')} create-vfan my-app --template react18-ts

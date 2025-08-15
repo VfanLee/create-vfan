@@ -42,7 +42,7 @@ export const TEMPLATE_CONFIG = {
     { title: 'Vue', value: 'vue' },
   ],
   react: [
-    { title: 'React18 + TypeScript', value: 'react18-ts' },
+    { title: 'React18', value: 'react18-ts' },
     { title: 'React Admin Template(alpha)', value: 'react-admin-remote' },
     { title: 'Next.js 14', value: 'next14' },
   ],
@@ -51,9 +51,9 @@ export const TEMPLATE_CONFIG = {
       { title: 'Vue2', value: 'vue2' },
       { title: 'Vue3', value: 'vue3' },
     ],
-    vue2: [{ title: 'Vue2 + JavaScript', value: 'vue2-js' }],
+    vue2: [{ title: 'Vue2', value: 'vue2-js' }],
     vue3: [
-      { title: 'Vue3 + TypeScript', value: 'vue3-ts' },
+      { title: 'Vue3', value: 'vue3-ts' },
       { title: 'Vue Admin Template(alpha)', value: 'vue-admin-remote' },
     ],
   },

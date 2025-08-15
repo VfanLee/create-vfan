@@ -7,7 +7,7 @@
 
 ## 介绍
 
-Vfan Lee 的项目脚手架，快速创建项目模板。
+Vfan Lee 的项目脚手架，用于快速创建项目。
 
 ## 快速开始
 
@@ -24,19 +24,25 @@ yarn create vfan@latest
 
 ## 使用方式
 
-```
-用法: create-vfan [参数] [选项]
+```bash
+用法（Usage）: create-vfan [项目名称] [选项]
 
-Vfan Lee 的项目脚手架
+Vfan Lee 的项目脚手架，用于快速创建项目。
 
-参数:
+参数（Arguments）:
   project-name               项目名称
 
-选项:
+选项（Options）:
   -v, --version              显示版本信息
   -f, --force                强制覆盖已存在的目录
   -t, --template <template>  指定模板
   -h, --help                 显示帮助信息
+
+示例（Examples）:
+  $ create-vfan
+  $ create-vfan my-app
+  $ create-vfan my-app --template react18-ts
+  $ create-vfan my-app -t next14 --force
 ```
 
 **💡 提示：** 不常用的项目模板统一在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/tree/main/uncommon-templates) 中进行管理。
