@@ -1,3 +1,12 @@
+## [0.3.2](https://github.com/VfanLee/create-vfan/compare/v0.3.1...v0.3.2) (2025-08-16)
+
+
+### Bug Fixes
+
+* templates version ([68d3b62](https://github.com/VfanLee/create-vfan/commit/68d3b62cb14b7d30092792ec2cd80e3bb63b7715))
+
+
+
 ## [0.3.1](https://github.com/VfanLee/create-vfan/compare/v0.3.0...v0.3.1) (2025-08-13)
 
 
