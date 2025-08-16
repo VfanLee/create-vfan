@@ -1,5 +1,3 @@
-import path from 'path'
-
 // 远程模板配置：所有模板都从 GitHub 仓库获取
 export const REMOTE_TEMPLATES = {
   // React 模板
@@ -57,9 +55,4 @@ export const TEMPLATE_CONFIG = {
       { title: 'Vue Admin Template(alpha)', value: 'vue-admin-remote' },
     ],
   },
-}
-
-// 获取目标项目目录路径
-export function getTargetDir(projectName: string): string {
-  return path.resolve(process.cwd(), projectName)
 }

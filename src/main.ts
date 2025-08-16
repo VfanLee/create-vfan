@@ -2,24 +2,9 @@
 
 import { Command } from 'commander'
 import chalk from 'chalk'
-import path from 'path'
-import fs from 'fs-extra'
-import { fileURLToPath } from 'url'
 import { promptProjectInfo } from './prompts.js'
 import { createProject } from './creator.js'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-// 获取 package.json 中的版本号
-function getVersion() {
-  const packagePath = path.resolve(__dirname, '..', 'package.json')
-  try {
-    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf-8'))
-    return pkg.version
-  } catch (error) {
-    return '0.0.0'
-  }
-}
+import { parseArguments, getPackageVersion } from './utils.js'
 
 const program = new Command()
 
@@ -28,7 +13,7 @@ program
   .name('create-vfan')
   .description('Vfan Lee 的项目脚手架，用于快速创建项目。')
   .usage('[项目名称] [选项]')
-  .version(getVersion(), '-v, --version', '显示版本信息')
+  .version(getPackageVersion(), '-v, --version', '显示版本信息')
   .argument('[project-name]', '项目名称')
   .option('-f, --force', '强制覆盖已存在的目录')
   .option('-t, --template <template>', '指定模板')
@@ -53,10 +38,14 @@ program
   ${chalk.dim('$')} create-vfan my-app -t next14 --force
 `,
   )
-  .action(async (projectName, options) => {
+  .action(async (projectNameArg, options) => {
     console.log(chalk.bold(chalk.cyan('create-vfan')) + ' 🚀\n')
 
     try {
+      // 解析参数 - 目前只需要一个项目名称参数
+      const args = parseArguments(projectNameArg, 1)
+      const projectName = args[0]
+
       // 通过交互式提示获取项目信息
       const { projectName: finalProjectName, template } = await promptProjectInfo(projectName, options.template)
       console.log()

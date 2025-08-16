@@ -3,7 +3,8 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import { simpleGit } from 'simple-git'
 import cliProgress from 'cli-progress'
-import { getTargetDir, REMOTE_TEMPLATES } from './template.js'
+import { REMOTE_TEMPLATES } from './template.js'
+import { updatePackageJson, copyTemplateFiles } from './utils.js'
 
 // 从远程 Git 仓库下载模板（支持子目录）
 async function downloadRemoteTemplate(template: string, targetDir: string) {
@@ -41,6 +42,10 @@ async function downloadRemoteTemplate(template: string, targetDir: string) {
           stageText = '正在接收对象...'
         } else if (stage.includes('Resolving deltas')) {
           stageText = '正在解析增量...'
+        }
+
+        if (percent === 100) {
+          progressBar.update(100, { stage: '完成!' })
         }
 
         progressBar.update(percentage, { stage: stageText })
@@ -84,35 +89,9 @@ async function downloadRemoteTemplate(template: string, targetDir: string) {
   }
 }
 
-// 复制模板文件
-async function copyTemplateFiles(sourceDir: string, targetDir: string) {
-  const items = await fs.readdir(sourceDir)
-
-  for (const item of items) {
-    // 跳过 .git 目录
-    if (item === '.git') continue
-
-    const sourcePath = path.join(sourceDir, item)
-    const targetPath = path.join(targetDir, item)
-
-    const stat = await fs.stat(sourcePath)
-
-    if (stat.isDirectory()) {
-      // 递归复制目录（跳过 node_modules）
-      if (!item.includes('node_modules')) {
-        await fs.ensureDir(targetPath)
-        await copyTemplateFiles(sourcePath, targetPath)
-      }
-    } else {
-      // 复制文件
-      await fs.copy(sourcePath, targetPath)
-    }
-  }
-}
-
 // 主要的项目创建流程
 export async function createProject(projectName: string, template: string, force: boolean = false) {
-  const targetDir = getTargetDir(projectName)
+  const targetDir = path.resolve(process.cwd(), projectName)
 
   // 检查目标目录是否已存在
   if (await fs.pathExists(targetDir)) {
@@ -145,22 +124,5 @@ export async function createProject(projectName: string, template: string, force
       await fs.remove(targetDir)
     }
     throw error
-  }
-}
-
-// 更新生成项目的 package.json 文件
-async function updatePackageJson(targetDir: string, projectName: string) {
-  const pkgPath = path.join(targetDir, 'package.json')
-
-  if (!fs.existsSync(pkgPath)) {
-    return
-  }
-
-  try {
-    const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
-    pkg.name = projectName
-    await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2))
-  } catch (error) {
-    console.warn(chalk.yellow('⚠️ 更新 package.json 失败:'), error)
   }
 }
