@@ -4,7 +4,8 @@
   "description": "Vfan Lee's Projects CLI",
   "keywords": [
     "vfanlee",
-    "create-vfan"
+    "create-vfan",
+    "cli"
   ],
   "license": "MIT",
   "author": {
