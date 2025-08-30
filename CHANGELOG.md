@@ -1,3 +1,12 @@
+## [0.3.3](https://github.com/VfanLee/create-vfan/compare/v0.3.2...v0.3.3) (2025-08-30)
+
+
+### Features
+
+* update tailwindcss ([f7187fe](https://github.com/VfanLee/create-vfan/commit/f7187fe3cb626f75f406382cebc5e5f7837390a6))
+
+
+
 ## [0.3.2](https://github.com/VfanLee/create-vfan/compare/v0.3.1...v0.3.2) (2025-08-16)
 
 
