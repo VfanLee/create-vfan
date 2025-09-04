@@ -1,33 +1,30 @@
 {
   "compilerOptions": {
-    // 基础配置
     "target": "es2022",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "skipLibCheck": true,
-    "incremental": true,
-    "jsx": "preserve",
-    "allowJs": true,
-
-    // 模块解析
     "module": "esnext",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "incremental": true,
+
+    // Bundler mode
     "moduleResolution": "bundler",
+    "jsx": "preserve",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+    "noEmit": true,
+
+    // Linting
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+
     "paths": {
       "@/*": ["./src/*"]
     },
 
-    // 类型检查
-    "strict": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-
-    // 输出控制
-    "noEmit": true,
-
-    // 插件
     "plugins": [
       {
         "name": "next"
