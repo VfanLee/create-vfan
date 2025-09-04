@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "outDir": "dist",
+    // 基础配置
+    "target": "es2022",
+    "lib": ["es2022", "esnext"],
+
+    // 模块解析
+    "module": "esnext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": ["node"]
+    "types": ["node"],
+
+    // 输出控制
+    "outDir": "dist"
   },
   "include": ["src"]
 }
