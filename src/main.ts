@@ -51,7 +51,7 @@ program
       console.log()
 
       // 执行项目创建流程
-      await createProject(finalProjectName, template, options.force)
+      await createProject(finalProjectName, template!, options.force)
 
       console.log(chalk.cyan(`\n✨ ${finalProjectName} 创建完成！`))
     } catch (error) {

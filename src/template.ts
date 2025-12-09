@@ -31,6 +31,10 @@ export const REMOTE_TEMPLATES = {
     repo: 'https://github.com/VfanLee/vue-admin-template.git',
     name: 'vue-admin-template',
   },
+  'vue-viz-remote': {
+    repo: 'https://github.com/VfanLee/vue-viz-template.git',
+    name: 'vue-viz-template',
+  },
 }
 
 // 模板配置：按框架分类的模板列表
@@ -41,7 +45,7 @@ export const TEMPLATE_CONFIG = {
   ],
   react: [
     { title: 'React18', value: 'react18-ts' },
-    { title: 'React Admin Template(alpha)', value: 'react-admin-remote' },
+    { title: 'React Admin Template', value: 'react-admin-remote' },
     { title: 'Next.js 14', value: 'next14' },
   ],
   vue: {
@@ -52,7 +56,8 @@ export const TEMPLATE_CONFIG = {
     vue2: [{ title: 'Vue2', value: 'vue2-js' }],
     vue3: [
       { title: 'Vue3', value: 'vue3-ts' },
-      { title: 'Vue Admin Template(alpha)', value: 'vue-admin-remote' },
+      { title: 'Vue Admin Template', value: 'vue-admin-remote' },
+      { title: 'Vue Viz Template', value: 'vue-viz-remote' },
     ],
   },
 }
