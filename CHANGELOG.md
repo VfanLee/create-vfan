@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/VfanLee/create-vfan/compare/v0.3.3...v0.4.0) (2025-12-09)
+
+
+### Features
+
+* add vue-viz-template ([ecfcde5](https://github.com/VfanLee/create-vfan/commit/ecfcde52d7bd3b4e9d7c02999cb98ce423109e05))
+
+
+
 ## [0.3.3](https://github.com/VfanLee/create-vfan/compare/v0.3.2...v0.3.3) (2025-08-30)
 
 
