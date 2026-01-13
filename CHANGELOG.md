@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/VfanLee/create-vfan/compare/v0.4.0...v0.5.0) (2026-01-13)
+
+
+### Features
+
+* template update ([3ee4fa9](https://github.com/VfanLee/create-vfan/commit/3ee4fa9092bd26858a19ad4bbae561417990fcff))
+
+
+
 # [0.4.0](https://github.com/VfanLee/create-vfan/compare/v0.3.3...v0.4.0) (2025-12-09)
 
 
