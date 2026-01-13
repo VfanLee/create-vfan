@@ -57,7 +57,7 @@ jobs:
             echo "Publishing as latest stable version..."
           fi
 
-          pnpm publish --tag $TAG --no-git-checks
+          pnpm publish --tag $TAG --no-git-checks --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
