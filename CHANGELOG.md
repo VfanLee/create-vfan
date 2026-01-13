@@ -1,3 +1,12 @@
+## [0.5.1](https://github.com/VfanLee/create-vfan/compare/v0.5.0...v0.5.1) (2026-01-13)
+
+
+### Features
+
+* cicd ([260644b](https://github.com/VfanLee/create-vfan/commit/260644bc83dcb53ea2a6815b75e3cc27a39132f3))
+
+
+
 # [0.5.0](https://github.com/VfanLee/create-vfan/compare/v0.4.0...v0.5.0) (2026-01-13)
 
 
