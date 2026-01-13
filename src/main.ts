@@ -34,8 +34,8 @@ program
 示例（Examples）:
   ${chalk.dim('$')} create-vfan
   ${chalk.dim('$')} create-vfan my-app
-  ${chalk.dim('$')} create-vfan my-app --template react18-ts
-  ${chalk.dim('$')} create-vfan my-app -t next14 --force
+  ${chalk.dim('$')} create-vfan my-app --template react
+  ${chalk.dim('$')} create-vfan my-app -t nextjs --force
 `,
   )
   .action(async (projectNameArg, options) => {

@@ -41,8 +41,8 @@ Vfan Lee 的项目脚手架，用于快速创建项目。
 示例（Examples）:
   $ create-vfan
   $ create-vfan my-app
-  $ create-vfan my-app --template react18-ts
-  $ create-vfan my-app -t next14 --force
+  $ create-vfan my-app --template react
+  $ create-vfan my-app -t nextjs --force
 ```
 
 **💡 提示：** 不常用的项目模板统一在 [`uncommon-templates`](https://github.com/VfanLee/create-vfan/tree/main/uncommon-templates) 中进行管理。
