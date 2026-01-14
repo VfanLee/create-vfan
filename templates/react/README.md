@@ -1,4 +1,4 @@
-# React18 + TS
+# React Template
 
 ## 说明
 

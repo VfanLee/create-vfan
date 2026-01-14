@@ -17,6 +17,10 @@ export async function promptProjectInfo(projectName?: string, template?: string)
         if (!input.trim()) {
           return '项目名称不能为空'
         }
+        // 允许 . 表示当前目录
+        if (input === '.') {
+          return true
+        }
         // 项目名称只能包含字母、数字、连字符和下划线
         if (!/^[a-zA-Z0-9\-_]+$/.test(input)) {
           return '项目名称只能包含字母、数字、连字符和下划线'
@@ -46,11 +50,20 @@ export async function promptProjectInfo(projectName?: string, template?: string)
       },
     })
   } else {
+    // 如果提供了项目名称参数，验证其格式
+    if (projectName && projectName !== '.') {
+      // 项目名称只能包含字母、数字、连字符和下划线
+      if (!/^[a-zA-Z0-9\-_]+$/.test(projectName)) {
+        console.error(chalk.red(`❌ 无效的项目名称: ${projectName}`))
+        console.error(chalk.yellow('💡 项目名称只能包含字母、数字、连字符和下划线'))
+        process.exit(1)
+      }
+    }
+
     // 验证提供的模板是否有效
     const validTemplates = [
       ...TEMPLATE_CONFIG.react.map((choice) => choice.value),
-      ...TEMPLATE_CONFIG.vue.vue2.map((choice) => choice.value),
-      ...TEMPLATE_CONFIG.vue.vue3.map((choice) => choice.value),
+      ...TEMPLATE_CONFIG.vue.map((choice) => choice.value),
     ]
     if (!validTemplates.includes(template)) {
       console.error(chalk.red(`❌ 无效的模板: ${template}`))
@@ -87,35 +100,13 @@ export async function promptProjectInfo(projectName?: string, template?: string)
       ])
       selectedTemplate = reactTemplateAnswer.template
     } else if (answers.framework === 'vue') {
-      // Vue 框架先选择版本
-      const vueVersionAnswer = await inquirer.prompt([
-        {
-          type: 'list',
-          name: 'vueVersion',
-          message: '选择 Vue 版本:',
-          choices: TEMPLATE_CONFIG.vue.versions.map((version) => ({
-            name: chalk.cyan(version.title),
-            value: version.value,
-            short: version.title,
-          })),
-          theme: {
-            style: {
-              highlight: chalk.cyan,
-              answer: chalk.cyan,
-            },
-          },
-        },
-      ])
-
-      // 根据 Vue 版本选择模板
-      const vueTemplates = vueVersionAnswer.vueVersion === 'vue2' ? TEMPLATE_CONFIG.vue.vue2 : TEMPLATE_CONFIG.vue.vue3
-
+      // Vue 框架直接选择模板
       const vueTemplateAnswer = await inquirer.prompt([
         {
           type: 'list',
           name: 'template',
-          message: `选择 ${vueVersionAnswer.vueVersion === 'vue2' ? 'Vue2' : 'Vue3'} 模板:`,
-          choices: vueTemplates.map((choice) => ({
+          message: '选择 Vue 模板:',
+          choices: TEMPLATE_CONFIG.vue.map((choice) => ({
             name: chalk.cyan(choice.title),
             value: choice.value,
             short: choice.title,

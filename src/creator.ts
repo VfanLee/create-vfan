@@ -90,11 +90,13 @@ async function downloadRemoteTemplate(template: string, targetDir: string) {
 }
 
 // 主要的项目创建流程
-export async function createProject(projectName: string, template: string, force: boolean = false) {
-  const targetDir = path.resolve(process.cwd(), projectName)
+export async function createProject(projectName: string, template: string, force: boolean = false): Promise<string> {
+  // 如果项目名称是 .，使用当前目录名
+  const actualProjectName = projectName === '.' ? path.basename(process.cwd()) : projectName
+  const targetDir = projectName === '.' ? process.cwd() : path.resolve(process.cwd(), projectName)
 
-  // 检查目标目录是否已存在
-  if (await fs.pathExists(targetDir)) {
+  // 检查目录是否已存在（如果不是当前目录）
+  if (projectName !== '.' && (await fs.pathExists(targetDir))) {
     if (!force) {
       console.error(chalk.red(`❌ 目录 '${projectName}' 已存在！`))
       console.error(chalk.yellow('💡 使用 --force 参数强制覆盖'))
@@ -117,12 +119,15 @@ export async function createProject(projectName: string, template: string, force
     await downloadRemoteTemplate(template, targetDir)
 
     // 更新 package.json 中的项目名称
-    await updatePackageJson(targetDir, projectName)
+    await updatePackageJson(targetDir, actualProjectName)
   } catch (error) {
     // 创建失败时清理已创建的目录
-    if (await fs.pathExists(targetDir)) {
+    // projectName === '.' 时不要删除当前目录
+    if (projectName !== '.' && (await fs.pathExists(targetDir))) {
       await fs.remove(targetDir)
     }
     throw error
   }
+
+  return actualProjectName
 }

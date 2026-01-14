@@ -1,5 +1,11 @@
+export type RemoteTemplateConfig = {
+  repo: string
+  subDir?: string
+  name: string
+}
+
 // 远程模板配置：所有模板都从 GitHub 仓库获取
-export const REMOTE_TEMPLATES = {
+export const REMOTE_TEMPLATES: Record<string, RemoteTemplateConfig> = {
   // React 模板
   'react': {
     repo: 'https://github.com/VfanLee/create-vfan.git',
@@ -44,20 +50,14 @@ export const TEMPLATE_CONFIG = {
     { title: 'Vue', value: 'vue' },
   ],
   react: [
-    { title: 'React18', value: 'react' },
+    { title: 'React', value: 'react' },
     { title: 'React Admin Template', value: 'react-admin-remote' },
-    { title: 'Next.js 14', value: 'nextjs' },
+    { title: 'Next.js', value: 'nextjs' },
   ],
-  vue: {
-    versions: [
-      { title: 'Vue2', value: 'vue2' },
-      { title: 'Vue3', value: 'vue3' },
-    ],
-    vue2: [{ title: 'Vue2', value: 'vue2' }],
-    vue3: [
-      { title: 'Vue3', value: 'vue3' },
-      { title: 'Vue Admin Template', value: 'vue-admin-remote' },
-      { title: 'Vue Viz Template', value: 'vue-viz-remote' },
-    ],
-  },
+  vue: [
+    { title: 'Vue2', value: 'vue2' },
+    { title: 'Vue3', value: 'vue3' },
+    { title: 'Vue Admin Template', value: 'vue-admin-remote' },
+    { title: 'Vue Viz Template', value: 'vue-viz-remote' },
+  ],
 }

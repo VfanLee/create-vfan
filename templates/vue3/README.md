@@ -1,4 +1,4 @@
-# Vue3 + TypeScript
+# Vue3 Template
 
 ## 说明
 

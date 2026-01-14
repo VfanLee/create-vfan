@@ -51,9 +51,9 @@ program
       console.log()
 
       // 执行项目创建流程
-      await createProject(finalProjectName, template!, options.force)
+      const createdProjectName = await createProject(finalProjectName, template!, options.force)
 
-      console.log(chalk.cyan(`\n✨ ${finalProjectName} 创建完成！`))
+      console.log(chalk.cyan(`\n✨ ${createdProjectName} 创建完成！`))
     } catch (error) {
       console.error(chalk.red('\n❌ 创建项目失败: ') + error)
       process.exit(1)
