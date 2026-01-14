@@ -1,3 +1,12 @@
+## [0.5.2](https://github.com/VfanLee/create-vfan/compare/v0.5.1...v0.5.2) (2026-01-14)
+
+
+### Features
+
+* create current directory ([27a2920](https://github.com/VfanLee/create-vfan/commit/27a29208e626e376dfd0506c04f44b81b94a0c77))
+
+
+
 ## [0.5.1](https://github.com/VfanLee/create-vfan/compare/v0.5.0...v0.5.1) (2026-01-13)
 
 
